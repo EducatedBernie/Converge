@@ -6,6 +6,7 @@ export default function useMockSimulation() {
   const [userCount, setUserCount] = useState(0);
   const [events, setEvents] = useState([]);
   const [banditStates, setBanditStates] = useState([]);
+  const [scenario, setScenario] = useState('impatient');
 
   const timerRef = useRef(null);
   const indexRef = useRef(0);
@@ -65,20 +66,26 @@ export default function useMockSimulation() {
     timerRef.current = setTimeout(playNext, delay);
   }, []);
 
-  const start = useCallback(async () => {
+  const start = useCallback(async (selectedScenario) => {
     // Reset state
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
     setEvents([]);
     setBanditStates([]);
     setUserCount(0);
     indexRef.current = 0;
     setStatus('starting');
 
-    const recording = await loadRecording();
+    const sc = selectedScenario || scenario;
+    setScenario(sc);
+    const recording = await loadRecording(sc);
     eventsRef.current = recording;
 
     setStatus('running');
     playNext();
-  }, [playNext]);
+  }, [playNext, scenario]);
 
   const pause = useCallback(() => {
     if (timerRef.current) {
@@ -105,9 +112,7 @@ export default function useMockSimulation() {
     speedRef.current = speed;
   }, []);
 
-  const setPopulationMix = useCallback(() => {
-    // No-op in mock mode
-  }, []);
+  const setPopulationMix = useCallback(() => {}, []);
 
   return {
     runId: 'mock',
@@ -121,5 +126,6 @@ export default function useMockSimulation() {
     stop,
     setSpeed,
     setPopulationMix,
+    scenario,
   };
 }

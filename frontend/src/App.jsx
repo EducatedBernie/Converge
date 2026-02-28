@@ -24,8 +24,13 @@ export default function App() {
   const [view, setView] = useState(IS_MOCK ? 'landing' : 'dashboard');
   const [selectedStep, setSelectedStep] = useState(1);
 
+  const handleLaunch = (scenario) => {
+    if (IS_MOCK) sim.start(scenario);
+    setView('dashboard');
+  };
+
   if (view === 'landing') {
-    return <LandingPage onLaunch={() => setView('dashboard')} />;
+    return <LandingPage onLaunch={handleLaunch} />;
   }
 
   return (
@@ -44,7 +49,7 @@ export default function App() {
       {IS_MOCK && (
         <div className="flex items-center justify-center gap-2 px-4 py-1.5 bg-purple-500/10 border-b border-purple-500/20 text-[11px] text-purple-300">
           <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-          You're watching a pre-recorded demo — this replays a 500-user simulation captured from the live system.
+          Pre-recorded demo — replaying 500 {sim.scenario === 'skeptical' ? 'skeptical & anxious' : 'impatient'} users through the live dashboard UI.
           <a href="https://github.com/EducatedBernie/Converge" target="_blank" rel="noopener noreferrer" className="underline text-purple-400 hover:text-purple-300 ml-1">View source</a>
         </div>
       )}

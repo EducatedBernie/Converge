@@ -1,11 +1,27 @@
 let _recording = null;
 let _loadingPromise = null;
 
-export async function loadRecording() {
-  if (_recording) return _recording;
-  if (_loadingPromise) return _loadingPromise;
+export const SCENARIOS = {
+  impatient: {
+    label: 'Impatient Users',
+    description: 'Fast-moving users who want urgency and simplicity',
+    file: '/mock/impatient.json',
+  },
+  skeptical: {
+    label: 'Skeptical & Anxious Users',
+    description: 'Cautious users who need proof and reassurance',
+    file: '/mock/skeptical.json',
+  },
+};
 
-  _loadingPromise = fetch('/mock/simulation-recording.json')
+export async function loadRecording(scenario = 'impatient') {
+  const file = SCENARIOS[scenario]?.file || SCENARIOS.impatient.file;
+
+  // Reset if switching scenarios
+  _recording = null;
+  _loadingPromise = null;
+
+  _loadingPromise = fetch(file)
     .then((res) => res.json())
     .then((data) => {
       _recording = data;

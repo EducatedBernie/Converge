@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const AGENTS = [
   {
     title: 'Bandit',
@@ -37,6 +39,29 @@ const AGENTS = [
   },
 ];
 
+const SCENARIOS = [
+  {
+    key: 'impatient',
+    label: 'Impatient Users',
+    description: '70% impatient, 15% casual, 15% goal-oriented',
+    detail: 'Fast-moving users who skip explanations. The bandit should converge on short, urgency-driven copy.',
+    color: 'from-orange-500 to-red-500',
+    border: 'border-orange-500/30',
+    bg: 'bg-orange-500/10',
+    text: 'text-orange-400',
+  },
+  {
+    key: 'skeptical',
+    label: 'Skeptical & Anxious',
+    description: '50% skeptical, 35% anxious, 15% goal-oriented',
+    detail: 'Cautious users who need proof. The bandit should favor social proof and reassurance-heavy copy.',
+    color: 'from-blue-500 to-cyan-500',
+    border: 'border-blue-500/30',
+    bg: 'bg-blue-500/10',
+    text: 'text-blue-400',
+  },
+];
+
 const FLOW_STEPS = [
   { label: 'Users', sub: 'enter funnel' },
   { label: 'Bandit', sub: 'routes traffic' },
@@ -48,6 +73,8 @@ const FLOW_STEPS = [
 const TECH = ['React', 'FastAPI', 'Claude API', 'Thompson Sampling', 'D3', 'Tailwind CSS', 'SSE Streaming', 'SQLite'];
 
 export default function LandingPage({ onLaunch }) {
+  const [selected, setSelected] = useState('impatient');
+
   return (
     <div className="min-h-screen bg-[#0a0e1a] text-slate-200">
       {/* Nav */}
@@ -59,7 +86,7 @@ export default function LandingPage({ onLaunch }) {
           <span className="text-base font-bold text-white tracking-tight">Converge</span>
         </div>
         <a
-          href="https://github.com/berniedev"
+          href="https://github.com/EducatedBernie/Converge"
           target="_blank"
           rel="noopener noreferrer"
           className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
@@ -81,17 +108,45 @@ export default function LandingPage({ onLaunch }) {
           continuously optimize onboarding copy. It allocates traffic, detects conversion patterns,
           and generates new variants — all in a live feedback loop.
         </p>
-        <button
-          onClick={onLaunch}
-          className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30"
-        >
-          Launch Demo
-        </button>
-        <p className="mt-3 text-xs text-slate-600">Pre-recorded 500-user simulation — no backend needed</p>
-        <p className="mt-1.5 text-[11px] text-slate-600 max-w-md mx-auto">
-          Note: this demo replays a captured simulation run. The live system uses a FastAPI backend
-          with real-time SSE streaming, Claude API calls, and a SQLite database.
-        </p>
+      </section>
+
+      {/* Scenario picker */}
+      <section className="max-w-2xl mx-auto px-6 pb-16">
+        <h2 className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-4 text-center">
+          Choose a user population
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          {SCENARIOS.map((s) => (
+            <button
+              key={s.key}
+              onClick={() => setSelected(s.key)}
+              className={`text-left p-4 rounded-xl border transition-all ${
+                selected === s.key
+                  ? `${s.border} ${s.bg}`
+                  : 'border-[#1e2a4a] bg-[#0f1629] hover:border-[#2e3a5a]'
+              }`}
+            >
+              <div className={`text-sm font-semibold ${selected === s.key ? s.text : 'text-white'}`}>
+                {s.label}
+              </div>
+              <div className="text-[11px] text-slate-500 mt-0.5">{s.description}</div>
+              <div className="text-[11px] text-slate-400 mt-2 leading-relaxed">{s.detail}</div>
+            </button>
+          ))}
+        </div>
+        <div className="text-center">
+          <button
+            onClick={() => onLaunch(selected)}
+            className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30"
+          >
+            Launch Demo
+          </button>
+          <p className="mt-3 text-xs text-slate-600">Pre-recorded 500-user simulation — no backend needed</p>
+          <p className="mt-1.5 text-[11px] text-slate-600 max-w-md mx-auto">
+            This replays a captured run. The live system uses FastAPI with real-time SSE,
+            Claude API calls, and SQLite.
+          </p>
+        </div>
       </section>
 
       {/* Problem */}
@@ -173,14 +228,14 @@ export default function LandingPage({ onLaunch }) {
       {/* Footer CTA */}
       <section className="max-w-3xl mx-auto text-center px-6 pt-8 pb-24">
         <button
-          onClick={onLaunch}
+          onClick={() => onLaunch(selected)}
           className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30"
         >
           Launch Demo
         </button>
         <div className="mt-6 flex items-center justify-center gap-4 text-xs text-slate-600">
           <a
-            href="https://github.com/berniedev"
+            href="https://github.com/EducatedBernie/Converge"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-slate-400 transition-colors"
