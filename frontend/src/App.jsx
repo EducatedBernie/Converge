@@ -40,6 +40,15 @@ export default function App() {
         </button>
       )}
 
+      {/* Demo disclaimer banner */}
+      {IS_MOCK && (
+        <div className="flex items-center justify-center gap-2 px-4 py-1.5 bg-purple-500/10 border-b border-purple-500/20 text-[11px] text-purple-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+          You're watching a pre-recorded demo — this replays a 500-user simulation captured from the live system.
+          <a href="https://github.com/EducatedBernie/Converge" target="_blank" rel="noopener noreferrer" className="underline text-purple-400 hover:text-purple-300 ml-1">View source</a>
+        </div>
+      )}
+
       {/* Top header bar */}
       <HeaderBar
         sim={sim}

@@ -88,6 +88,10 @@ export default function LandingPage({ onLaunch }) {
           Launch Demo
         </button>
         <p className="mt-3 text-xs text-slate-600">Pre-recorded 500-user simulation — no backend needed</p>
+        <p className="mt-1.5 text-[11px] text-slate-600 max-w-md mx-auto">
+          Note: this demo replays a captured simulation run. The live system uses a FastAPI backend
+          with real-time SSE streaming, Claude API calls, and a SQLite database.
+        </p>
       </section>
 
       {/* Problem */}
