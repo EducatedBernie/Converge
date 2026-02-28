@@ -3,13 +3,17 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell, ResponsiveContainer } from 
 import { fetchJSON } from '../utils/api';
 import { labelVariants } from '../utils/variants';
 
-export default function AllocationView({ banditStates, selectedStep }) {
+export default function AllocationView({ banditStates, selectedStep, variants: variantsProp }) {
   const [variants, setVariants] = useState([]);
   const [mode, setMode] = useState('allocation');
 
   useEffect(() => {
-    fetchJSON('/data/variants').then(setVariants).catch(() => {});
-  }, []);
+    if (variantsProp?.length) {
+      setVariants(variantsProp);
+    } else {
+      fetchJSON('/data/variants').then(setVariants).catch(() => {});
+    }
+  }, [variantsProp]);
 
   const data = useMemo(() => {
     const labeled = labelVariants(variants, selectedStep);

@@ -10,12 +10,16 @@ const FEATURE_LABELS = {
   reassurance: 'Reassurance',
 };
 
-export default function VariantPreview({ selectedStep }) {
+export default function VariantPreview({ selectedStep, variants: variantsProp }) {
   const [variants, setVariants] = useState([]);
 
   useEffect(() => {
-    fetchJSON('/data/variants').then(setVariants).catch(() => {});
-  }, []);
+    if (variantsProp?.length) {
+      setVariants(variantsProp);
+    } else {
+      fetchJSON('/data/variants').then(setVariants).catch(() => {});
+    }
+  }, [variantsProp]);
 
   const labeled = labelVariants(variants, selectedStep);
 

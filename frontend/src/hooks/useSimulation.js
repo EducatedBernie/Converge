@@ -7,6 +7,7 @@ export default function useSimulation() {
   const [userCount, setUserCount] = useState(0);
   const [events, setEvents] = useState([]);
   const [banditStates, setBanditStates] = useState([]);
+  const [variants] = useState([]);
   const sourceRef = useRef(null);
 
   const handleMessage = useCallback((data) => {
@@ -107,5 +108,6 @@ export default function useSimulation() {
     stop,
     setSpeed,
     setPopulationMix,
+    variants,
   };
 }

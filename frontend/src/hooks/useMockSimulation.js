@@ -7,6 +7,7 @@ export default function useMockSimulation() {
   const [events, setEvents] = useState([]);
   const [banditStates, setBanditStates] = useState([]);
   const [scenario, setScenario] = useState('impatient');
+  const [variants, setVariants] = useState([]);
 
   const timerRef = useRef(null);
   const indexRef = useRef(0);
@@ -82,6 +83,7 @@ export default function useMockSimulation() {
     setScenario(sc);
     const recording = await loadRecording(sc);
     eventsRef.current = recording;
+    setVariants(recording.variants || []);
 
     setStatus('running');
     playNext();
@@ -127,5 +129,6 @@ export default function useMockSimulation() {
     setSpeed,
     setPopulationMix,
     scenario,
+    variants,
   };
 }

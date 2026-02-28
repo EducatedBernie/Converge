@@ -51,13 +51,7 @@ export default function PopulationMixer({ sim, isMock }) {
   };
 
   return (
-    <div className={isMock ? 'relative' : ''}>
-      {isMock && (
-        <div className="absolute -top-1 right-0 text-[9px] text-purple-400/70 font-medium">
-          Pre-recorded
-        </div>
-      )}
-
+    <div>
       {/* Ring row */}
       <div className="flex justify-between mb-3">
         {PERSONAS.map((p) => (

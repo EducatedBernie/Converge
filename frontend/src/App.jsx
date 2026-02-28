@@ -13,6 +13,7 @@ import HypothesisLog from './components/HypothesisLog';
 import ConfirmedRejectedChart from './components/ConfirmedRejectedChart';
 import ChatPanel from './components/ChatPanel';
 import LandingPage from './components/LandingPage';
+import GuidedTour from './components/GuidedTour';
 
 const IS_MOCK = import.meta.env.VITE_MOCK_MODE === 'true';
 
@@ -23,10 +24,16 @@ export default function App() {
 
   const [view, setView] = useState(IS_MOCK ? 'landing' : 'dashboard');
   const [selectedStep, setSelectedStep] = useState(1);
+  const [showTour, setShowTour] = useState(false);
 
   const handleLaunch = (scenario) => {
     if (IS_MOCK) sim.start(scenario);
     setView('dashboard');
+    if (IS_MOCK) setShowTour(true);
+  };
+
+  const handleTourFinish = () => {
+    setShowTour(false);
   };
 
   if (view === 'landing') {
@@ -55,12 +62,14 @@ export default function App() {
       )}
 
       {/* Top header bar */}
-      <HeaderBar
-        sim={sim}
-        selectedStep={selectedStep}
-        onSelectStep={setSelectedStep}
-        isMock={IS_MOCK}
-      />
+      <div data-tour="controls">
+        <HeaderBar
+          sim={sim}
+          selectedStep={selectedStep}
+          onSelectStep={setSelectedStep}
+          isMock={IS_MOCK}
+        />
+      </div>
 
       {/* Status bar */}
       <StatusBar sim={sim} />
@@ -69,10 +78,10 @@ export default function App() {
       <div className="flex-1 grid grid-cols-[280px_1fr_320px] gap-3 p-3 min-h-0">
         {/* LEFT COLUMN — Users & Input */}
         <div className="flex flex-col gap-3 min-h-0 overflow-y-auto">
-          <Panel title="POPULATION MIXER">
+          <Panel title="POPULATION MIXER" tourId="population" badge={IS_MOCK ? "Pre-recorded" : undefined}>
             <PopulationMixer sim={sim} isMock={IS_MOCK} />
           </Panel>
-          <Panel title="ACTIVE FUNNEL FLOW">
+          <Panel title="ACTIVE FUNNEL FLOW" tourId="funnel">
             <FunnelView events={sim.events} />
           </Panel>
           <Panel title="POPULATION COMPOSITION OVER TIME">
@@ -82,26 +91,27 @@ export default function App() {
 
         {/* CENTER COLUMN — AI Optimization Loop */}
         <div className="flex flex-col gap-3 min-h-0 overflow-y-auto">
-          <Panel title={`AI OPTIMIZATION LOOP — STEP ${selectedStep}: ${stepName(selectedStep)}`}>
+          <Panel title={`AI OPTIMIZATION LOOP — STEP ${selectedStep}: ${stepName(selectedStep)}`} tourId="allocation">
             <AllocationView
               banditStates={sim.banditStates}
               selectedStep={selectedStep}
+              variants={sim.variants}
             />
           </Panel>
-          <Panel title="AI REASONING" badge="Powered by Claude">
+          <Panel title="AI REASONING" badge="Powered by Claude" tourId="reasoning">
             <AIReasoning sim={sim} selectedStep={selectedStep} />
           </Panel>
           <Panel title="LINKED VARIANT PREVIEW">
-            <VariantPreview selectedStep={selectedStep} />
+            <VariantPreview selectedStep={selectedStep} variants={sim.variants} />
           </Panel>
         </div>
 
         {/* RIGHT COLUMN — History & Results */}
         <div className="flex flex-col gap-3 min-h-0 overflow-y-auto">
-          <Panel title="HYPOTHESIS LOG">
+          <Panel title="HYPOTHESIS LOG" tourId="hypothesis">
             <HypothesisLog sim={sim} />
           </Panel>
-          <Panel title="CONFIRMED VS. REJECTED HYPOTHESES">
+          <Panel title="CONFIRMED VS. REJECTED HYPOTHESES" tourId="results">
             <ConfirmedRejectedChart sim={sim} />
           </Panel>
           <div className="mt-auto">
@@ -111,6 +121,8 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {showTour && <GuidedTour onFinish={handleTourFinish} />}
     </div>
   );
 }
@@ -119,9 +131,9 @@ function stepName(n) {
   return { 1: 'WELCOME', 2: 'USE CASE', 3: 'FIRST TASK', 4: 'CONVERSION' }[n] || '';
 }
 
-function Panel({ title, badge, children }) {
+function Panel({ title, badge, tourId, children }) {
   return (
-    <div className="bg-[#0f1629] rounded-lg border border-[#1e2a4a] p-3">
+    <div className="bg-[#0f1629] rounded-lg border border-[#1e2a4a] p-3" {...(tourId ? { 'data-tour': tourId } : {})}>
       <div className="flex items-center justify-between mb-2">
         <h2 className="text-[10px] font-semibold tracking-widest text-slate-500 uppercase">
           {title}
