@@ -23,24 +23,43 @@ export default function AIReasoning({ sim, selectedStep }) {
       `Variant ${worstLetter} at ${worstRate}%. Thompson Sampling is routing ${trafficPct}% of traffic to the leader.`;
   };
 
+  const isSkeptical = sim.scenario === 'skeptical';
+
   const getAnalystInsight = () => {
     if (sim.userCount < 30) return 'Waiting for sufficient data to begin analysis (~30 users needed)...';
     if (sim.userCount < 80) return 'Early signal: Identifying persona-variant affinity patterns. Need more data to form a hypothesis.';
-    if (sim.userCount < 130) return 'Observed trend: Persona segments respond differently to copy tone. ' +
-      'High-urgency personas convert best on short, action-oriented copy (Variant A). ' +
-      'Detail-seeking personas (Skeptical, Goal-Oriented) favor Variant B with social proof. ' +
-      'Forming hypothesis: a blend of urgency + social proof could outperform both.';
-    if (sim.userCount < 150) return 'Hypothesis formed. Recommending Generator produce Variant C: ' +
-      'urgency-driven headline (from A) + social proof subtext (from B) + reassurance CTA for anxious users.';
+    if (sim.userCount < 130) {
+      if (isSkeptical) {
+        return 'Observed trend: Skeptical users hesitate on Variant A — too pushy, not enough proof. ' +
+          'Anxious users drop off on Variant B — too much detail overwhelms them. ' +
+          'Forming hypothesis: copy that leads with social proof but keeps it short could convert both segments.';
+      }
+      return 'Observed trend: Impatient users bounce on Variant B — too wordy, they want speed. ' +
+        'But Variant A misses casual users who need a reason to care. ' +
+        'Forming hypothesis: a short, punchy headline with a credibility hook could capture both.';
+    }
+    if (sim.userCount < 150) {
+      if (isSkeptical) {
+        return 'Hypothesis formed. Recommending Generator produce Variant C: ' +
+          'social proof headline (from B\'s strength) + concise subtext (from A\'s brevity) + reassurance CTA for anxious users.';
+      }
+      return 'Hypothesis formed. Recommending Generator produce Variant C: ' +
+        'urgency-driven headline (from A\'s speed signal) + social proof subtext (from B) to give casual users a reason to engage.';
+    }
     return 'Hypothesis delivered to Generator. Variant C is now live and collecting data. ' +
       'Monitoring early conversion signal against A and B.';
   };
 
   const getGeneratorInsight = () => {
     if (sim.userCount < 130) return 'Idle — awaiting analyst hypothesis.';
-    if (sim.userCount < 150) return 'Hypothesis received from Analyst. Generating Variant C that blends: ' +
-      'urgency headline (from A\'s signal) + social proof subtext (from B\'s strength with skeptical users) + ' +
-      'reassurance CTA for anxious segment.';
+    if (sim.userCount < 150) {
+      if (isSkeptical) {
+        return 'Hypothesis received from Analyst. Generating Variant C that blends: ' +
+          'social proof headline (from B) + short format (from A) + reassurance CTA for anxious segment.';
+      }
+      return 'Hypothesis received from Analyst. Generating Variant C that blends: ' +
+        'urgency headline (from A\'s signal) + credibility subtext (from B\'s social proof) to hook casual users.';
+    }
     return 'Variant C generated and deployed to bandit pool. Copy: "Join 10,000 teams — get started in 30 seconds." ' +
       'Now competing against A and B across all 4 funnel steps.';
   };

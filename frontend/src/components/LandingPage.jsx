@@ -16,7 +16,7 @@ const SCENARIOS = [
 const TECH = ['React', 'FastAPI', 'Claude API', 'Thompson Sampling', 'D3', 'Tailwind CSS', 'SSE Streaming', 'SQLite'];
 
 export default function LandingPage({ onLaunch }) {
-  const [selected, setSelected] = useState('impatient');
+  const [selected, setSelected] = useState('skeptical');
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
