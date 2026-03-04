@@ -57,7 +57,6 @@ export default function App() {
         <div className="flex items-center justify-center gap-2 px-4 py-1.5 bg-gray-50 border-b border-gray-200 text-[11px] text-gray-500">
           <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
           Pre-recorded demo — replaying 500 {sim.scenario === 'skeptical' ? 'skeptical & anxious' : 'impatient'} users through the live dashboard UI.
-          <a href="https://github.com/EducatedBernie/Converge" target="_blank" rel="noopener noreferrer" className="underline text-gray-500 hover:text-gray-700 ml-1">View source</a>
         </div>
       )}
 

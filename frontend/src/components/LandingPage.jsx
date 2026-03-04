@@ -28,14 +28,6 @@ export default function LandingPage({ onLaunch }) {
           </div>
           <span className="text-sm font-bold text-gray-900">Converge</span>
         </div>
-        <a
-          href="https://github.com/EducatedBernie/Converge"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs text-gray-400 hover:text-gray-600 underline"
-        >
-          GitHub
-        </a>
       </nav>
 
       <div className="max-w-2xl mx-auto px-6 py-10">
@@ -99,17 +91,8 @@ export default function LandingPage({ onLaunch }) {
         </div>
 
         {/* Footer */}
-        <div className="mt-6 pt-4 border-t border-gray-200 flex items-center gap-3 text-xs text-gray-400">
-          <a
-            href="https://github.com/EducatedBernie/Converge"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-gray-600 underline"
-          >
-            Source
-          </a>
-          <span>·</span>
-          <span>Built by Bernie</span>
+        <div className="mt-6 pt-4 border-t border-gray-200 text-xs text-gray-400">
+          Built by Bernie
         </div>
       </div>
     </div>
