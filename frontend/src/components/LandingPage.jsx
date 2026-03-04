@@ -88,11 +88,11 @@ export default function LandingPage({ onLaunch }) {
       </nav>
 
       {/* Hero */}
-      <section className="max-w-3xl mx-auto text-center px-6 pt-24 pb-16">
-        <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6 text-gray-900">
+      <section className="max-w-3xl mx-auto text-center px-6 pt-12 pb-8">
+        <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4 text-gray-900">
           What if your onboarding funnel could rewrite itself?
         </h1>
-        <p className="text-lg text-gray-500 leading-relaxed mb-10 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-500 leading-relaxed mb-6 max-w-2xl mx-auto">
           Converge is an AI-powered simulation that combines multi-armed bandits with Claude to
           continuously optimize onboarding copy. It allocates traffic, detects conversion patterns,
           and generates new variants — all in a live feedback loop.
@@ -100,7 +100,7 @@ export default function LandingPage({ onLaunch }) {
       </section>
 
       {/* Scenario picker */}
-      <section className="max-w-2xl mx-auto px-6 pb-16">
+      <section className="max-w-2xl mx-auto px-6 pb-8">
         <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4 text-center">
           Choose a user population
         </h2>
@@ -139,9 +139,9 @@ export default function LandingPage({ onLaunch }) {
       </section>
 
       {/* Problem */}
-      <section className="max-w-3xl mx-auto px-6 py-16">
-        <div className="bg-white rounded-xl border border-gray-200 p-8">
-          <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4">The Problem</h2>
+      <section className="max-w-3xl mx-auto px-6 py-6">
+        <div className="bg-white rounded-xl border border-gray-200 p-6">
+          <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-3">The Problem</h2>
           <p className="text-gray-600 leading-relaxed">
             Growth teams are bottlenecked by experiment velocity. Traditional A/B testing requires manual
             hypothesis generation, slow iteration cycles, and statistical expertise. Most teams run 2-3
@@ -151,8 +151,8 @@ export default function LandingPage({ onLaunch }) {
       </section>
 
       {/* The System — 3-card */}
-      <section className="max-w-4xl mx-auto px-6 py-16">
-        <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-8 text-center">
+      <section className="max-w-4xl mx-auto px-6 py-6">
+        <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4 text-center">
           The System
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -173,8 +173,8 @@ export default function LandingPage({ onLaunch }) {
       </section>
 
       {/* How It Works — flow diagram */}
-      <section className="max-w-4xl mx-auto px-6 py-16">
-        <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-8 text-center">
+      <section className="max-w-4xl mx-auto px-6 py-6">
+        <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4 text-center">
           How It Works
         </h2>
         <div className="flex items-center justify-center gap-2 flex-wrap">
@@ -198,8 +198,8 @@ export default function LandingPage({ onLaunch }) {
       </section>
 
       {/* Tech Stack */}
-      <section className="max-w-3xl mx-auto px-6 py-16">
-        <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-6 text-center">
+      <section className="max-w-3xl mx-auto px-6 py-6">
+        <h2 className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-4 text-center">
           Tech Stack
         </h2>
         <div className="flex flex-wrap justify-center gap-2">
@@ -215,7 +215,7 @@ export default function LandingPage({ onLaunch }) {
       </section>
 
       {/* Footer CTA */}
-      <section className="max-w-3xl mx-auto text-center px-6 pt-8 pb-24">
+      <section className="max-w-3xl mx-auto text-center px-6 pt-6 pb-12">
         <button
           onClick={() => onLaunch(selected)}
           className="px-8 py-3 bg-gray-900 hover:bg-gray-800 rounded-lg text-sm font-semibold text-white transition-colors"
