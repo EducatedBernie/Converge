@@ -18,7 +18,7 @@ export default function ConfirmedRejectedChart({ sim }) {
   }, [sim.userCount]);
 
   if (sim.userCount < 30) {
-    return <div className="text-[10px] text-slate-600 text-center py-4">Awaiting hypotheses...</div>;
+    return <div className="text-[10px] text-gray-400 text-center py-4">Awaiting hypotheses...</div>;
   }
 
   return (
@@ -26,23 +26,23 @@ export default function ConfirmedRejectedChart({ sim }) {
       <LineChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: -20 }}>
         <XAxis
           dataKey="users"
-          tick={{ fill: '#475569', fontSize: 8 }}
+          tick={{ fill: '#9ca3af', fontSize: 8 }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
-          tick={{ fill: '#475569', fontSize: 8 }}
+          tick={{ fill: '#9ca3af', fontSize: 8 }}
           axisLine={false}
           tickLine={false}
         />
         <Tooltip
-          contentStyle={{ background: '#0f1629', border: '1px solid #1e2a4a', borderRadius: 6, fontSize: 10 }}
+          contentStyle={{ background: '#ffffff', border: '1px solid #e5e7eb', borderRadius: 6, fontSize: 10 }}
           labelFormatter={(v) => `${v} users`}
         />
         <Line
           type="monotone"
           dataKey="confirmed"
-          stroke="#10b981"
+          stroke="#16a34a"
           strokeWidth={2}
           dot={false}
           name="Confirmed"
@@ -50,7 +50,7 @@ export default function ConfirmedRejectedChart({ sim }) {
         <Line
           type="monotone"
           dataKey="rejected"
-          stroke="#ef4444"
+          stroke="#dc2626"
           strokeWidth={2}
           dot={false}
           name="Rejected"

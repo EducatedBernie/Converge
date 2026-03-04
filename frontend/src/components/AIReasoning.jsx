@@ -58,10 +58,10 @@ export default function AIReasoning({ sim, selectedStep }) {
         {TABS.map((tab) => {
           const isActive = activeTab === tab;
           const dotColor = tab === 'Bandit'
-            ? (sim.userCount > 0 ? 'bg-emerald-400' : 'bg-slate-600')
+            ? (sim.userCount > 0 ? 'bg-green-500' : 'bg-gray-300')
             : tab === 'Analyst'
-            ? (sim.userCount > 50 ? 'bg-blue-400' : 'bg-slate-600')
-            : (sim.userCount > 100 ? 'bg-purple-400' : 'bg-slate-600');
+            ? (sim.userCount > 50 ? 'bg-blue-500' : 'bg-gray-300')
+            : (sim.userCount > 100 ? 'bg-purple-500' : 'bg-gray-300');
 
           return (
             <button
@@ -69,8 +69,8 @@ export default function AIReasoning({ sim, selectedStep }) {
               onClick={() => setActiveTab(tab)}
               className={`flex items-center gap-1.5 px-3 py-1 text-[10px] rounded transition-colors ${
                 isActive
-                  ? 'bg-purple-600/30 text-purple-300 border border-purple-500/30'
-                  : 'bg-[#1a2340] text-slate-500 hover:text-slate-300'
+                  ? 'bg-gray-900 text-white'
+                  : 'bg-gray-100 text-gray-500 hover:text-gray-700'
               }`}
             >
               <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
@@ -81,7 +81,7 @@ export default function AIReasoning({ sim, selectedStep }) {
       </div>
 
       {/* Content */}
-      <p className="text-[11px] text-slate-400 leading-relaxed">
+      <p className="text-[11px] text-gray-500 leading-relaxed">
         {content[activeTab]}
       </p>
     </div>

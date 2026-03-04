@@ -15,7 +15,7 @@ function Ring({ pct, color, size = 48 }) {
 
   return (
     <svg width={size} height={size} className="transform -rotate-90">
-      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#1e2a4a" strokeWidth={4} />
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e5e7eb" strokeWidth={4} />
       <circle
         cx={size / 2}
         cy={size / 2}
@@ -58,7 +58,7 @@ export default function PopulationMixer({ sim, isMock }) {
           <div key={p.key} className="flex flex-col items-center">
             <div className="relative">
               <Ring pct={mix[p.key]} color={p.color} size={44} />
-              <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white">
+              <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-gray-900">
                 {mix[p.key]}%
               </span>
             </div>
@@ -71,17 +71,17 @@ export default function PopulationMixer({ sim, isMock }) {
         {PERSONAS.map((p) => (
           <div key={p.key} className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: p.color }} />
-            <span className="text-[10px] text-slate-400 w-20 truncate">{p.label}</span>
+            <span className="text-[10px] text-gray-500 w-20 truncate">{p.label}</span>
             <input
               type="range"
               min="0"
               max="100"
               value={mix[p.key]}
               onChange={(e) => handleChange(p.key, e.target.value)}
-              className="flex-1 h-1 accent-blue-500 cursor-pointer"
+              className="flex-1 h-1 cursor-pointer"
               style={{ accentColor: p.color }}
             />
-            <span className="text-[10px] text-slate-500 font-mono w-7 text-right">{mix[p.key]}%</span>
+            <span className="text-[10px] text-gray-400 font-mono w-7 text-right">{mix[p.key]}%</span>
           </div>
         ))}
       </div>

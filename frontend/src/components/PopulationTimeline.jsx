@@ -35,7 +35,7 @@ export default function PopulationTimeline({ events }) {
   }, [events]);
 
   if (data.length < 2) {
-    return <div className="text-[10px] text-slate-600 text-center py-4">Awaiting data...</div>;
+    return <div className="text-[10px] text-gray-400 text-center py-4">Awaiting data...</div>;
   }
 
   return (
@@ -51,7 +51,7 @@ export default function PopulationTimeline({ events }) {
             stackId="1"
             stroke={p.color}
             fill={p.color}
-            fillOpacity={0.6}
+            fillOpacity={0.4}
           />
         ))}
       </AreaChart>

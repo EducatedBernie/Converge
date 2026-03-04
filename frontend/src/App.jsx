@@ -41,12 +41,12 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a] text-slate-200 flex flex-col">
+    <div className="min-h-screen bg-white text-gray-900 flex flex-col">
       {/* Back to landing in mock mode */}
       {IS_MOCK && (
         <button
           onClick={() => setView('landing')}
-          className="absolute top-2 right-4 z-50 text-[10px] text-slate-600 hover:text-slate-400 transition-colors"
+          className="absolute top-2 right-4 z-50 text-[10px] text-gray-400 hover:text-gray-600 transition-colors"
         >
           Back to overview
         </button>
@@ -54,10 +54,10 @@ export default function App() {
 
       {/* Demo disclaimer banner */}
       {IS_MOCK && (
-        <div className="flex items-center justify-center gap-2 px-4 py-1.5 bg-purple-500/10 border-b border-purple-500/20 text-[11px] text-purple-300">
-          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+        <div className="flex items-center justify-center gap-2 px-4 py-1.5 bg-gray-50 border-b border-gray-200 text-[11px] text-gray-500">
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
           Pre-recorded demo — replaying 500 {sim.scenario === 'skeptical' ? 'skeptical & anxious' : 'impatient'} users through the live dashboard UI.
-          <a href="https://github.com/EducatedBernie/Converge" target="_blank" rel="noopener noreferrer" className="underline text-purple-400 hover:text-purple-300 ml-1">View source</a>
+          <a href="https://github.com/EducatedBernie/Converge" target="_blank" rel="noopener noreferrer" className="underline text-gray-500 hover:text-gray-700 ml-1">View source</a>
         </div>
       )}
 
@@ -133,13 +133,13 @@ function stepName(n) {
 
 function Panel({ title, badge, tourId, children }) {
   return (
-    <div className="bg-[#0f1629] rounded-lg border border-[#1e2a4a] p-3" {...(tourId ? { 'data-tour': tourId } : {})}>
+    <div className="bg-white rounded-lg border border-gray-200 p-3" {...(tourId ? { 'data-tour': tourId } : {})}>
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-[10px] font-semibold tracking-widest text-slate-500 uppercase">
+        <h2 className="text-[10px] font-semibold tracking-widest text-gray-400 uppercase">
           {title}
         </h2>
         {badge && (
-          <span className="text-[9px] px-2 py-0.5 rounded-full bg-purple-900/40 text-purple-300 font-medium">
+          <span className="text-[9px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium">
             {badge}
           </span>
         )}

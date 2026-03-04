@@ -146,7 +146,7 @@ export default function GuidedTour({ onFinish }) {
       <div
         className="absolute inset-0 transition-all duration-300 ease-in-out"
         style={{
-          background: 'rgba(0, 0, 0, 0.65)',
+          background: 'rgba(0, 0, 0, 0.5)',
           clipPath: `polygon(
             0% 0%, 0% 100%, ${rect.left}px 100%, ${rect.left}px ${rect.top}px,
             ${rect.left + rect.width}px ${rect.top}px, ${rect.left + rect.width}px ${rect.top + rect.height}px,
@@ -158,7 +158,7 @@ export default function GuidedTour({ onFinish }) {
 
       {/* Border highlight around target */}
       <div
-        className="absolute rounded-lg border-2 border-purple-400/60 pointer-events-none transition-all duration-300 ease-in-out"
+        className="absolute rounded-lg border-2 border-gray-900 pointer-events-none transition-all duration-300 ease-in-out"
         style={{
           top: rect.top - 3,
           left: rect.left - 3,
@@ -175,23 +175,23 @@ export default function GuidedTour({ onFinish }) {
           opacity: transitioning ? 0 : 1,
         }}
       >
-        <div className="bg-[#0f1629] border border-[#1e2a4a] rounded-lg shadow-2xl shadow-black/50 overflow-hidden">
-          {/* Purple accent bar */}
-          <div className="h-1 bg-gradient-to-r from-purple-500 to-blue-500" />
+        <div className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+          {/* Accent bar */}
+          <div className="h-1 bg-gray-900" />
 
           <div className="p-4">
             {/* Step counter */}
-            <div className="text-[10px] text-slate-500 tracking-widest uppercase mb-1">
+            <div className="text-[10px] text-gray-400 tracking-widest uppercase mb-1">
               {currentStep + 1} of {STEPS.length}
             </div>
 
             {/* Title */}
-            <h3 className="text-sm font-semibold text-white mb-2">
+            <h3 className="text-sm font-semibold text-gray-900 mb-2">
               {step.title}
             </h3>
 
             {/* Description */}
-            <p className="text-xs text-slate-400 leading-relaxed mb-4">
+            <p className="text-xs text-gray-500 leading-relaxed mb-4">
               {step.description}
             </p>
 
@@ -199,7 +199,7 @@ export default function GuidedTour({ onFinish }) {
             <div className="flex items-center justify-between">
               <button
                 onClick={onFinish}
-                className="text-[10px] text-slate-600 hover:text-slate-400 transition-colors"
+                className="text-[10px] text-gray-400 hover:text-gray-600 transition-colors"
               >
                 Skip Guide
               </button>
@@ -208,14 +208,14 @@ export default function GuidedTour({ onFinish }) {
                 {currentStep > 0 && (
                   <button
                     onClick={handleBack}
-                    className="px-3 py-1 text-[11px] rounded bg-[#1a2340] text-slate-400 hover:bg-[#1e2a4a] hover:text-slate-200 transition-colors"
+                    className="px-3 py-1 text-[11px] rounded bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
                   >
                     Back
                   </button>
                 )}
                 <button
                   onClick={handleNext}
-                  className="px-3 py-1 text-[11px] rounded bg-purple-600 hover:bg-purple-500 text-white font-medium transition-colors"
+                  className="px-3 py-1 text-[11px] rounded bg-gray-900 hover:bg-gray-800 text-white font-medium transition-colors"
                 >
                   {isLast ? 'Start Watching' : 'Next'}
                 </button>

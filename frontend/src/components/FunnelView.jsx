@@ -62,13 +62,13 @@ export default function FunnelView({ events }) {
       g.append('rect')
         .attr('x', x).attr('y', innerH - barH)
         .attr('width', w).attr('height', barH)
-        .attr('fill', BAR_COLORS[i]).attr('rx', 3).attr('opacity', 0.85);
+        .attr('fill', BAR_COLORS[i]).attr('rx', 3).attr('opacity', 0.75);
 
       // Count on top
       g.append('text')
         .attr('x', x + w / 2).attr('y', innerH - barH - 4)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#e2e8f0').attr('font-size', 11).attr('font-weight', 700)
+        .attr('fill', '#111827').attr('font-size', 11).attr('font-weight', 700)
         .text(d.reached || '');
 
       // Conversion rate inside bar
@@ -77,7 +77,7 @@ export default function FunnelView({ events }) {
         g.append('text')
           .attr('x', x + w / 2).attr('y', innerH - 4)
           .attr('text-anchor', 'middle')
-          .attr('fill', 'rgba(255,255,255,0.7)').attr('font-size', 9)
+          .attr('fill', 'rgba(0,0,0,0.5)').attr('font-size', 9)
           .text(`${rate}%`);
       }
 
@@ -85,7 +85,7 @@ export default function FunnelView({ events }) {
       g.append('text')
         .attr('x', x + w / 2).attr('y', innerH + 13)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#64748b').attr('font-size', 8)
+        .attr('fill', '#9ca3af').attr('font-size', 8)
         .text(d.label);
 
       // Flow connector

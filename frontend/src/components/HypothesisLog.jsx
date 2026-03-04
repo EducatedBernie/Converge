@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
 const STATUS_STYLES = {
-  validated: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', label: 'Confirmed' },
-  rejected: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Rejected' },
-  pending: { bg: 'bg-amber-500/20', text: 'text-amber-400', label: 'Testing' },
+  validated: { bg: 'bg-green-50', text: 'text-green-700', label: 'Confirmed' },
+  rejected: { bg: 'bg-red-50', text: 'text-red-700', label: 'Rejected' },
+  pending: { bg: 'bg-amber-50', text: 'text-amber-700', label: 'Testing' },
 };
 
 // Placeholder hypotheses derived from live bandit data.
@@ -85,7 +85,7 @@ export default function HypothesisLog({ sim }) {
 
   if (!hypotheses.length) {
     return (
-      <div className="text-[10px] text-slate-600 text-center py-6">
+      <div className="text-[10px] text-gray-400 text-center py-6">
         Hypotheses appear as data accumulates...
       </div>
     );
@@ -98,32 +98,32 @@ export default function HypothesisLog({ sim }) {
         return (
           <div
             key={h.id}
-            className="p-2 rounded-lg bg-[#0a0e1a] border border-[#1e2a4a] hover:border-[#2a3a5a] transition-colors"
+            className="p-2 rounded-lg bg-white border border-gray-200 hover:border-gray-300 transition-colors"
           >
             <div className="flex items-center gap-2 mb-1">
               <span className={`text-[9px] px-1.5 py-0.5 rounded font-semibold ${style.bg} ${style.text}`}>
                 {style.label}
               </span>
-              <span className="text-[11px] text-slate-200 font-medium flex-1 truncate">
+              <span className="text-[11px] text-gray-800 font-medium flex-1 truncate">
                 {h.text}
               </span>
               {/* Confidence bar */}
               <div className="flex items-center gap-1 flex-shrink-0">
-                <div className="w-12 h-1.5 bg-[#1a2340] rounded-full overflow-hidden">
+                <div className="w-12 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                   <div
                     className="h-full rounded-full"
                     style={{
                       width: `${h.confidence * 100}%`,
-                      backgroundColor: h.confidence > 0.7 ? '#10b981' : h.confidence > 0.5 ? '#f59e0b' : '#ef4444',
+                      backgroundColor: h.confidence > 0.7 ? '#15803d' : h.confidence > 0.5 ? '#b45309' : '#b91c1c',
                     }}
                   />
                 </div>
-                <span className="text-[9px] text-slate-500 font-mono w-7 text-right">
+                <span className="text-[9px] text-gray-400 font-mono w-7 text-right">
                   {(h.confidence * 100).toFixed(0)}%
                 </span>
               </div>
             </div>
-            <p className="text-[9px] text-slate-500 leading-snug pl-0.5">{h.detail}</p>
+            <p className="text-[9px] text-gray-500 leading-snug pl-0.5">{h.detail}</p>
           </div>
         );
       })}
