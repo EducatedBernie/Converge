@@ -32,12 +32,18 @@ export default function LandingPage({ onLaunch }) {
 
       <div className="max-w-2xl mx-auto px-6 py-10">
         {/* Title */}
-        <h1 className="text-xl font-bold mb-2">What if your onboarding funnel could rewrite itself?</h1>
+        <h1 className="text-xl font-bold mb-2">What if your onboarding funnel could rewrite itself — and generate new copy to test?</h1>
         <p className="text-sm text-gray-500 mb-6">
-          Converge is a system that automatically improves onboarding copy. It watches how
-          different types of users respond to different wording, figures out what works for
-          whom, and writes new variations to test — all on its own, in real time.
+          Converge watches how different users respond to different onboarding copy,
+          figures out what works for whom, and writes new variations to test — automatically, in real time.
         </p>
+
+        {/* Variant illustration */}
+        <img
+          src="/variants.png"
+          alt="Two onboarding copy variants being tested — urgency vs social proof"
+          className="w-full max-w-md mx-auto mb-6 rounded border border-gray-200"
+        />
 
         {/* How it works */}
         <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">How it works</h2>

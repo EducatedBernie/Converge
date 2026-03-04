@@ -10,6 +10,11 @@ const FEATURE_LABELS = {
   reassurance: 'Reassurance',
 };
 
+const VARIANT_IMAGES = {
+  A: '/variant-a.png',
+  B: '/variant-b.png',
+};
+
 export default function VariantPreview({ selectedStep, variants: variantsProp }) {
   const [variants, setVariants] = useState([]);
 
@@ -51,20 +56,28 @@ export default function VariantPreview({ selectedStep, variants: variantsProp })
           </div>
 
           {/* Content mockup */}
-          <div className="rounded bg-gray-50 border border-gray-200 p-2.5 mb-2">
-            <p className="text-[11px] text-gray-800 font-semibold leading-tight">
-              {v.content?.headline}
-            </p>
-            <p className="text-[9px] text-gray-500 leading-snug mt-1">
-              {v.content?.subtext}
-            </p>
-            <button
-              className="mt-2 px-3 py-1 rounded text-[9px] font-semibold text-white"
-              style={{ backgroundColor: v.color }}
-            >
-              {v.content?.cta}
-            </button>
-          </div>
+          {VARIANT_IMAGES[v.label] ? (
+            <img
+              src={VARIANT_IMAGES[v.label]}
+              alt={`Variant ${v.label} onboarding screen`}
+              className="rounded border border-gray-200 mb-2 w-full"
+            />
+          ) : (
+            <div className="rounded bg-gray-50 border border-gray-200 p-2.5 mb-2">
+              <p className="text-[11px] text-gray-800 font-semibold leading-tight">
+                {v.content?.headline}
+              </p>
+              <p className="text-[9px] text-gray-500 leading-snug mt-1">
+                {v.content?.subtext}
+              </p>
+              <button
+                className="mt-2 px-3 py-1 rounded text-[9px] font-semibold text-white"
+                style={{ backgroundColor: v.color }}
+              >
+                {v.content?.cta}
+              </button>
+            </div>
+          )}
 
           {/* Feature bars */}
           <div className="space-y-1">

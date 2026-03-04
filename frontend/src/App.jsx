@@ -100,7 +100,7 @@ export default function App() {
           <Panel title="AI REASONING" badge="Powered by Claude" tourId="reasoning">
             <AIReasoning sim={sim} selectedStep={selectedStep} />
           </Panel>
-          <Panel title="LINKED VARIANT PREVIEW">
+          <Panel title="COPY VARIANTS">
             <VariantPreview selectedStep={selectedStep} variants={sim.variants} />
           </Panel>
         </div>
