@@ -32,21 +32,20 @@ export default function LandingPage({ onLaunch }) {
 
       <div className="max-w-2xl mx-auto px-6 py-10">
         {/* Title */}
-        <h1 className="text-xl font-bold mb-2">Converge</h1>
+        <h1 className="text-xl font-bold mb-2">What if your onboarding funnel could rewrite itself?</h1>
         <p className="text-sm text-gray-500 mb-6">
-          Adaptive onboarding copy optimization using multi-armed bandits and Claude.
-          A three-agent loop allocates traffic via Thompson Sampling, detects conversion
-          patterns across persona segments, and generates new copy variants — continuously,
-          in a live feedback loop.
+          Converge is a system that automatically improves onboarding copy. It watches how
+          different types of users respond to different wording, figures out what works for
+          whom, and writes new variations to test — all on its own, in real time.
         </p>
 
         {/* How it works */}
         <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">How it works</h2>
         <ol className="text-sm text-gray-600 list-decimal list-inside space-y-1 mb-6">
-          <li><strong>Bandit</strong> (Thompson Sampling) routes users to the best-performing variant at each funnel step.</li>
-          <li><strong>Analyst</strong> (Claude) observes conversion data, identifies persona–copy affinity patterns, forms hypotheses.</li>
-          <li><strong>Generator</strong> (Claude) creates new copy variants based on analyst insights; they enter the bandit pool.</li>
-          <li>Loop repeats every ~50 users. The system converges on optimal copy per persona segment.</li>
+          <li><strong>Route traffic.</strong> The system sends each user to whichever version of the copy is performing best, while still testing alternatives.</li>
+          <li><strong>Spot patterns.</strong> An AI analyst watches conversion data and notices which types of users respond to which style of copy.</li>
+          <li><strong>Write new copy.</strong> Based on those patterns, AI generates new variations designed to outperform the current best.</li>
+          <li><strong>Repeat.</strong> New copy enters the pool, gets tested on real users, and the cycle continues — converging on what works.</li>
         </ol>
 
         {/* Scenario picker */}
