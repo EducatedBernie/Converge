@@ -64,8 +64,6 @@ export default function App() {
       <div data-tour="controls">
         <HeaderBar
           sim={sim}
-          selectedStep={selectedStep}
-          onSelectStep={setSelectedStep}
           isMock={IS_MOCK}
         />
       </div>
@@ -90,7 +88,30 @@ export default function App() {
 
         {/* CENTER COLUMN — AI Optimization Loop */}
         <div className="flex flex-col gap-3 min-h-0 overflow-y-auto">
-          <Panel title={`AI OPTIMIZATION LOOP — STEP ${selectedStep}: ${stepName(selectedStep)}`} tourId="allocation">
+          {/* Funnel step tabs */}
+          <div className="flex items-stretch border border-gray-200 rounded-lg overflow-hidden" data-tour="allocation">
+            {[
+              { n: 1, label: 'Welcome' },
+              { n: 2, label: 'Use Case' },
+              { n: 3, label: 'First Task' },
+              { n: 4, label: 'Conversion' },
+            ].map(({ n, label }, i) => (
+              <button
+                key={n}
+                onClick={() => setSelectedStep(n)}
+                className={`flex-1 py-2 text-xs font-semibold tracking-wide transition-colors ${
+                  selectedStep === n
+                    ? 'bg-gray-900 text-white'
+                    : 'bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+                } ${i > 0 ? 'border-l border-gray-200' : ''}`}
+              >
+                <span className="text-[10px] font-normal text-gray-400 mr-1">Step {n}</span>
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <Panel title="AI OPTIMIZATION LOOP">
             <AllocationView
               banditStates={sim.banditStates}
               selectedStep={selectedStep}
@@ -124,10 +145,6 @@ export default function App() {
       {showTour && <GuidedTour onFinish={handleTourFinish} />}
     </div>
   );
-}
-
-function stepName(n) {
-  return { 1: 'WELCOME', 2: 'USE CASE', 3: 'FIRST TASK', 4: 'CONVERSION' }[n] || '';
 }
 
 function Panel({ title, badge, tourId, children }) {

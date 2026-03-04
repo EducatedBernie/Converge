@@ -1,14 +1,8 @@
 import { useState } from 'react';
 
-const STEPS = [
-  { n: 1, label: 'Welcome' },
-  { n: 2, label: 'Use Case' },
-  { n: 3, label: 'First Task' },
-  { n: 4, label: 'Conversion' },
-];
 const SPEEDS = [1, 5, 10, 25, 50];
 
-export default function HeaderBar({ sim, selectedStep, onSelectStep, isMock }) {
+export default function HeaderBar({ sim, isMock }) {
   const [speed, setSpeed] = useState(5);
 
   const handleSpeed = (s) => {
@@ -101,22 +95,6 @@ export default function HeaderBar({ sim, selectedStep, onSelectStep, isMock }) {
         ))}
       </div>
 
-      {/* Step tabs — pushed right */}
-      <div className="flex items-center gap-1 ml-auto">
-        {STEPS.map(({ n, label }) => (
-          <button
-            key={n}
-            onClick={() => onSelectStep(n)}
-            className={`px-3 py-1 text-[11px] rounded transition-colors ${
-              selectedStep === n
-                ? 'bg-gray-900 text-white'
-                : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700'
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
     </header>
   );
 }

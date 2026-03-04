@@ -17,9 +17,9 @@ const STEPS = [
   },
   {
     target: 'allocation',
-    title: 'Traffic Allocation',
+    title: 'Funnel Steps',
     description:
-      'The multi-armed bandit routes traffic to variants. Watch the bars shift as it learns which copy converts best.',
+      'The onboarding funnel has 4 steps. Click each tab to see how the bandit allocates traffic and which copy variants perform best at that stage.',
     position: 'below',
   },
   {
@@ -69,24 +69,29 @@ export default function GuidedTour({ onFinish }) {
     }
   }, [step]);
 
-  // Lock body scroll while tour is active
+  // Scroll target into view then measure on each step change
   useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = prev; };
-  }, []);
+    if (!step) return;
+    const el = document.querySelector(`[data-tour="${step.target}"]`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Re-measure after scroll settles
+      const timer = setTimeout(measure, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [step, measure]);
 
-  // Measure on step change and on resize
+  // Re-measure on resize and scroll
   useEffect(() => {
-    measure();
-
     const observer = new ResizeObserver(measure);
     observer.observe(document.body);
     window.addEventListener('resize', measure);
+    window.addEventListener('scroll', measure, true);
 
     return () => {
       observer.disconnect();
       window.removeEventListener('resize', measure);
+      window.removeEventListener('scroll', measure, true);
     };
   }, [measure]);
 

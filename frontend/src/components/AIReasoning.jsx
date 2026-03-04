@@ -1,10 +1,4 @@
-import { useState } from 'react';
-
-const TABS = ['Bandit', 'Analyst', 'Generator'];
-
 export default function AIReasoning({ sim, selectedStep }) {
-  const [activeTab, setActiveTab] = useState('Bandit');
-
   const getBanditInsight = () => {
     if (!sim.banditStates.length) return 'Waiting for simulation data...';
 
@@ -32,58 +26,44 @@ export default function AIReasoning({ sim, selectedStep }) {
   const getAnalystInsight = () => {
     if (sim.userCount < 30) return 'Waiting for sufficient data to begin analysis (~30 users needed)...';
     if (sim.userCount < 80) return 'Early signal: Identifying persona-variant affinity patterns. Need more data to form a hypothesis.';
-    return 'Observed trend: Persona segments are responding differently to copy tone. ' +
+    if (sim.userCount < 130) return 'Observed trend: Persona segments respond differently to copy tone. ' +
       'High-urgency personas convert best on short, action-oriented copy (Variant A). ' +
-      'Detail-seeking personas (Skeptical, Goal-Oriented) favor Variant B with social proof and feature specifics. ' +
-      'Recommending new variant that blends urgency headline with social proof subtext.';
+      'Detail-seeking personas (Skeptical, Goal-Oriented) favor Variant B with social proof. ' +
+      'Forming hypothesis: a blend of urgency + social proof could outperform both.';
+    if (sim.userCount < 150) return 'Hypothesis formed. Recommending Generator produce Variant C: ' +
+      'urgency-driven headline (from A) + social proof subtext (from B) + reassurance CTA for anxious users.';
+    return 'Hypothesis delivered to Generator. Variant C is now live and collecting data. ' +
+      'Monitoring early conversion signal against A and B.';
   };
 
   const getGeneratorInsight = () => {
-    if (sim.userCount < 100) return 'Generator idle — awaiting analyst hypothesis.';
-    return 'Hypothesis received. Generating Variant C that combines: ' +
-      'short urgency headline (from A\'s winning signal) + social proof subtext (from B\'s strength with skeptical users) + ' +
-      'reassurance CTA for anxious segment. Variant will enter the bandit pool and compete against A and B.';
+    if (sim.userCount < 130) return 'Idle — awaiting analyst hypothesis.';
+    if (sim.userCount < 150) return 'Hypothesis received from Analyst. Generating Variant C that blends: ' +
+      'urgency headline (from A\'s signal) + social proof subtext (from B\'s strength with skeptical users) + ' +
+      'reassurance CTA for anxious segment.';
+    return 'Variant C generated and deployed to bandit pool. Copy: "Join 10,000 teams — get started in 30 seconds." ' +
+      'Now competing against A and B across all 4 funnel steps.';
   };
 
-  const content = {
-    Bandit: getBanditInsight(),
-    Analyst: getAnalystInsight(),
-    Generator: getGeneratorInsight(),
-  };
+  const agents = [
+    { name: 'Bandit', dotColor: sim.userCount > 0 ? 'bg-green-500' : 'bg-gray-300', text: getBanditInsight() },
+    { name: 'Analyst', dotColor: sim.userCount > 50 ? 'bg-blue-500' : 'bg-gray-300', text: getAnalystInsight() },
+    { name: 'Generator', dotColor: sim.userCount > 100 ? 'bg-purple-500' : 'bg-gray-300', text: getGeneratorInsight() },
+  ];
 
   return (
-    <div>
-      {/* Tabs */}
-      <div className="flex gap-1 mb-3">
-        {TABS.map((tab) => {
-          const isActive = activeTab === tab;
-          const dotColor = tab === 'Bandit'
-            ? (sim.userCount > 0 ? 'bg-green-500' : 'bg-gray-300')
-            : tab === 'Analyst'
-            ? (sim.userCount > 50 ? 'bg-blue-500' : 'bg-gray-300')
-            : (sim.userCount > 100 ? 'bg-purple-500' : 'bg-gray-300');
-
-          return (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex items-center gap-1.5 px-3 py-1 text-[10px] rounded transition-colors ${
-                isActive
-                  ? 'bg-gray-900 text-white'
-                  : 'bg-gray-100 text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
-              {tab}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Content */}
-      <p className="text-[11px] text-gray-500 leading-relaxed">
-        {content[activeTab]}
-      </p>
+    <div className="space-y-2.5">
+      {agents.map((a) => (
+        <div key={a.name}>
+          <div className="flex items-center gap-1.5 mb-1">
+            <span className={`w-1.5 h-1.5 rounded-full ${a.dotColor}`} />
+            <span className="text-[10px] font-semibold text-gray-900">{a.name}</span>
+          </div>
+          <p className="text-[11px] text-gray-500 leading-relaxed pl-3">
+            {a.text}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }
