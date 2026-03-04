@@ -69,6 +69,13 @@ export default function GuidedTour({ onFinish }) {
     }
   }, [step]);
 
+  // Lock body scroll while tour is active
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
   // Measure on step change and on resize
   useEffect(() => {
     measure();
@@ -167,9 +174,9 @@ export default function GuidedTour({ onFinish }) {
         }}
       />
 
-      {/* Tooltip card */}
+      {/* Tooltip card — z-10 to sit above the click blocker */}
       <div
-        className="absolute transition-all duration-300 ease-in-out"
+        className="absolute z-10 transition-all duration-300 ease-in-out"
         style={{
           ...tooltipStyle,
           opacity: transitioning ? 0 : 1,
