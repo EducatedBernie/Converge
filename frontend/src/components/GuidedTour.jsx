@@ -33,7 +33,7 @@ const STEPS = [
     target: 'funnel',
     title: 'Funnel Flow',
     description:
-      'Each dot is a user moving through the 4-step onboarding funnel. Green = converted, red = dropped off.',
+      'Users move through the 4-step onboarding funnel. Bar height shows how many reached each step, with conversion rates shown inside.',
     position: 'right',
   },
   {
