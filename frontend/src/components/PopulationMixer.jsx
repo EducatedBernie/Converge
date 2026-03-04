@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const PERSONAS = [
   { key: 'impatient', label: 'Impatient', color: '#8b5cf6' },
@@ -7,6 +7,11 @@ const PERSONAS = [
   { key: 'goal_oriented', label: 'Goal-Oriented', color: '#10b981' },
   { key: 'anxious', label: 'Anxious', color: '#f59e0b' },
 ];
+
+const SCENARIO_MIXES = {
+  impatient: { impatient: 70, skeptical: 0, casual: 15, goal_oriented: 15, anxious: 0 },
+  skeptical: { impatient: 0, skeptical: 50, casual: 0, goal_oriented: 15, anxious: 35 },
+};
 
 function Ring({ pct, color, size = 48 }) {
   const r = (size - 6) / 2;
@@ -36,6 +41,12 @@ export default function PopulationMixer({ sim, isMock }) {
   const [mix, setMix] = useState(
     Object.fromEntries(PERSONAS.map((p) => [p.key, 20]))
   );
+
+  useEffect(() => {
+    if (isMock && sim.scenario && SCENARIO_MIXES[sim.scenario]) {
+      setMix(SCENARIO_MIXES[sim.scenario]);
+    }
+  }, [isMock, sim.scenario]);
 
   const handleChange = (key, value) => {
     if (isMock) return;
